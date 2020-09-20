@@ -1,0 +1,75 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class='container my-3'>
+    <table class='table'>
+        <thead>
+            <tr class='text-center thead-dark'>
+                <th>번호</th>
+                <th style="width:50%">제목</th>
+                <th style="width:20%">작성자</th>
+                <th style="width:20%">작성일</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%if lecture_list.items%}
+            {%for lecture in lecture_list.items%}
+            <tr class='text-center'>
+                <td>{{lecture.id}}</td>
+                <td class='text-left'><a href="{{url_for('lecture.detail', lecture_id=lecture.id)}}">{{lecture.subject}}</a></td>
+                <td>{{lecture.userId}}</td>
+                <td>{{lecture.create_date|datetime}}</td>
+            </tr>
+            {%endfor%}
+            {%else%}
+            <tr>
+                <td colspan='3'>공부한 흔적이 없습니다</td>
+            </tr>
+            {%endif%}
+        </tbody>
+    </table>
+    <!---- 페이지네이션 시작 ---->
+    <ul class='pagination justify-content-center'>
+        <!-- 이전 페이지 -->
+        {%if lecture_list.has_prev%}
+        <li class='page-item'>
+            <a class='page-link' href="?page={{lecture_list.prev_num}}">이전</a>
+        </li>
+        {%else%}
+        <li class='page-item disabled'>
+            <a class='page-link' tabindex='-1' aria-disabled="true" href='#'>이전</a>
+        </li>
+        {%endif%}
+        {%for page_num in lecture_list.iter_pages()%}
+            {%if page_num%}
+                {%if page_num != lecture_list.page%}
+                <li class='page-item'>
+                    <a class='page-link' href='?page={{page_num}}'>{{page_num}}</a>
+                </li>
+                {%else%}
+                <li class='page-item active' aria-current='page'>
+                    <a class='page-link' href='#'>{{page_num}}</a>
+                </li>
+                {%endif%}
+            {%else%}
+            <li class='disabled'>
+                <a class='page-link' href='#'>...</a>
+            </li>
+            {%endif%}
+        {%endfor%}
+        <!-- 다음 페이지 -->
+        {%if lecture_list.has_next%}
+        <li class='page-item'>
+            <a class='page-link' href='?page={{lecture_list.next_num}}'>다음</a>
+        </li>
+        {%else%}
+        <li class='page-item disabled'>
+            <a class='page-link' tabindex='-1' aria-disabled='true' href='#'>다음</a>
+        </li>
+        {%endif%}
+    </ul>
+    <!-- 페이징 처리 끝 -->
+    {%if g.user.userId=='gamgo'%}
+    <a href='{{url_for("lecture.create")}}'><button type='button' class='btn btn-primary'>글쓰기</button></a>
+    {%endif%}
+</div>
+{%endblock%}
