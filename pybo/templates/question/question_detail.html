@@ -1,5 +1,7 @@
 {%extends 'base.html'%}
 {%block content%}
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
 <div class="container my-3">
     <h2 class="border-bottom py-2">{{question.subject}}</h2>
     <div class="card my-3">
@@ -74,4 +76,9 @@ $(document).ready(function(){
     })
 })
 </script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8"
+ src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/go.min.js"></script>
 {%endblock%}

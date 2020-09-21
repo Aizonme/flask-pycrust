@@ -15,9 +15,13 @@
         </div>
         <div class='form-group'>
             <label for='content'>내용</label>
-            <textarea class='form-control' name='content' id='content' class='form-control' rows='15'>{{form.content.data or ''}}</textarea>
+            <textarea class='form-control markdown-content' name='content' id='content' rows='15'>{{form.content.data or ''}}</textarea>
         </div>
         <button type='submit' class='btn btn-primary'>등록</button>
     </form>
 </div>
+{%endblock%}
+{%block script%}
+<script src="{{url_for('static', filename='simplemde.min.js')}}"></script>
+<script src="{{url_for('static', filename='markdown.js')}}"></script>
 {%endblock%}

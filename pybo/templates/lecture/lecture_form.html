@@ -11,21 +11,14 @@
         <div class='form-group'>
             <input type='text' name='subject' id='subject' class='form-control' placeholder='제목' value="{{form.subject.data or ''}}">
         </div>
-        <div id='test-editor' stype='height:100%'>
-            <textarea name='content' id='content'>{{form.content.data or ''}}</textarea>
+        <div id='form-group'>
+            <textarea class='markdown-content form-control' name='content' id='content' rows='15'>{{form.content.data or ''}}</textarea>
         </div>
         <button type='submit' class='btn btn-primary'>등록하기</button>
     </form>
 </div>
 {%endblock%}
 {%block script%}
-<script>
-$(function(){
-    var editor=editormd('test-editor',{
-        width:"100%",
-        height:580,
-        path:"/static/editor.md/lib/"
-    })
-})
-</script>
+<script src="{{url_for('static', filename='simplemde.min.js')}}"></script>
+<script src="{{url_for('static', filename='markdown.js')}}"></script>
 {%endblock%}
